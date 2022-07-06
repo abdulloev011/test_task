@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -26,6 +27,20 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
+
+    public function render($request, Throwable $e)
+    {
+        $e = $this->prepareException($e);
+        if($e instanceof HttpResponseException) {
+            return $e->getResponse();
+        }else{
+            return response()->json([
+                'message' => 'Ошибка сервера!',
+                'errors' => $e->getMessage()
+            ], 500);
+        }
+        return $this->prepareResponse($e, $request);
+    }
 
     /**
      * Register the exception handling callbacks for the application.
