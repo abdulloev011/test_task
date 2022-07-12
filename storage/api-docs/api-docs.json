@@ -5,13 +5,13 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/buy-certificate": {
+        "/api/certificate/buy": {
             "post": {
                 "tags": [
                     "Certificate"
                 ],
                 "summary": "Active order",
-                "operationId": "9d3a5763f119a5b2e0fa70ce934baf9c",
+                "operationId": "b3cca32c7ef9d6c9c5bb7afa8fd21418",
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -20,7 +20,7 @@
                                     "last_name",
                                     "name",
                                     "email",
-                                    "number_tree",
+                                    "number_of_tree",
                                     "currency",
                                     "plantation_year"
                                 ],
@@ -34,7 +34,7 @@
                                     "email": {
                                         "type": "string"
                                     },
-                                    "number_tree": {
+                                    "number_of_tree": {
                                         "type": "integer"
                                     },
                                     "currency": {
@@ -72,6 +72,80 @@
                         "description": "Forbidden"
                     }
                 }
+            }
+        },
+        "/api/certificate/activate": {
+            "post": {
+                "tags": [
+                    "Certificate"
+                ],
+                "summary": "Active order",
+                "operationId": "c727f6302438c6f4f722c9ab9e5a2bc2",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "code"
+                                ],
+                                "properties": {
+                                    "code": {
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {}
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {}
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "not found"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                }
+            }
+        },
+        "/api/certificate/list": {
+            "get": {
+                "tags": [
+                    "Certificate"
+                ],
+                "summary": "Activate  certificates",
+                "operationId": "2098d7aff9e63283a4147f19a7f2d4b6",
+                "responses": {
+                    "200": {
+                        "description": "Display a listing of addresses."
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     }

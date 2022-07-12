@@ -17,4 +17,8 @@ class Certificate extends Model
         'is_active',
         'unique_code'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
